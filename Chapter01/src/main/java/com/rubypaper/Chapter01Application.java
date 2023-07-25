@@ -1,4 +1,4 @@
-package com.rubypaper.chapter01;
+package com.rubypaper;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
