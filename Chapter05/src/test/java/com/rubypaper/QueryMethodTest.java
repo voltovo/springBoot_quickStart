@@ -57,4 +57,13 @@ public class QueryMethodTest {
             System.out.println("---> " + board.toString());
         }
     }
+
+    @Test
+    public void testFindByTitleContainingOrderBySeqDesc(){
+        List<Board> boardList = boardRepo.findByTitleContainingOrderBySeqDesc("17");
+        System.out.println("검색 결과");
+        for (Board board : boardList) {
+            System.out.println("---> " + board.toString());
+        }
+    }
 }
