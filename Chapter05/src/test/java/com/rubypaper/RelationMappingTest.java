@@ -52,4 +52,14 @@ public class RelationMappingTest {
             boardRepo.save(board);
         }
     }
+
+    @Test
+    public void testManyToOneSelect(){
+        Board board = boardRepo.findById(5L).get();
+        System.out.println("[ " + board.getSeq() + "번 게시글 정보 ]");
+        System.out.println("제목 : " + board.getTitle());
+        System.out.println("내용 : " + board.getContent());
+        System.out.println("작성자 : " + board.getMember().getName());
+        System.out.println("작성자 권한 : " + board.getMember().getRole());
+    }
 }
