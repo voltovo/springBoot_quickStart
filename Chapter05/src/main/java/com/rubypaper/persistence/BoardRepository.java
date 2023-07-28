@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface BoardRepository extends CrudRepository<Board, Long>{
     List<Board> findByTitle(String searchKeyword);
+    List<Board> findByContentContaining(String searchKeyword);
 }
