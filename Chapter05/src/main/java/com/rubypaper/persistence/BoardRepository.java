@@ -20,6 +20,6 @@ public interface BoardRepository extends CrudRepository<Board, Long> {
     // 페이징 처리하기
     Page<Board> findByTitleContaining(String searchKeyword, Pageable paging);
     // 네이티브 쿼리 사용
-    @Query(value = "select seq, title, writer, create_date from board where title like '%'||?1||'%' order by seq desc", nativeQuery = true)
-    List<Object[]> queryAnnotationTest(String searchKeyword);
+//    @Query(value = "select seq, title, writer, create_date from board where title like '%'||?1||'%' order by seq desc", nativeQuery = true)
+//    List<Object[]> queryAnnotationTest(String searchKeyword);
 }
