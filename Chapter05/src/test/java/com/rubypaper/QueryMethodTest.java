@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import java.util.Date;
 import java.util.List;
 
@@ -30,20 +31,29 @@ public class QueryMethodTest {
 //    }
 
     @Test
-    public void testFindByTitle(){
+    public void testFindByTitle() {
         List<Board> boardList = boardRepo.findByTitle("테스트 제목 10");
 
         System.out.println("검색 결과");
-        for(Board board : boardList){
+        for (Board board : boardList) {
             System.out.println("---> " + board.toString());
         }
     }
 
     @Test
-    public void testByContentContaining(){
+    public void testByContentContaining() {
         List<Board> boardList = boardRepo.findByContentContaining("17");
         System.out.println("검색 결과");
-        for(Board board : boardList){
+        for (Board board : boardList) {
+            System.out.println("---> " + board.toString());
+        }
+    }
+
+    @Test
+    public void testFindByTitleContainingOrContentContaining() {
+        List<Board> boardList = boardRepo.findByTitleContainingOrContentContaining("17", "17");
+        System.out.println("검색 결과");
+        for (Board board : boardList) {
             System.out.println("---> " + board.toString());
         }
     }
