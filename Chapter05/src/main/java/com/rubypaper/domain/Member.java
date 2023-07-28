@@ -1,16 +1,15 @@
 package com.rubypaper.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "boardList")
 @Entity
 public class Member {
     @Id
@@ -19,4 +18,7 @@ public class Member {
     private String password;
     private String name;
     private String role;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    private List<Board> boardList = new ArrayList<Board>();
 }
