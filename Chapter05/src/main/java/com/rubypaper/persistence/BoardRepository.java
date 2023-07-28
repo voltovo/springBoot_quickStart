@@ -1,6 +1,7 @@
 package com.rubypaper.persistence;
 
 import com.rubypaper.domain.Board;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.domain.Pageable;
 
@@ -16,5 +17,5 @@ public interface BoardRepository extends CrudRepository<Board, Long>{
     // 조회 데이터 정렬하기
     List<Board> findByTitleContainingOrderBySeqDesc(String searchKeyword);
     // 페이징 처리하기
-    List<Board> findByTitleContaining(String searchKeyword, Pageable paging);
+    Page<Board> findByTitleContaining(String searchKeyword, Pageable paging);
 }
