@@ -2,14 +2,13 @@ package com.rubypaper.persistence;
 
 import com.rubypaper.domain.Board;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.querydsl.QuerydslPredicateExecutor;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface BoardRepository extends CrudRepository<Board, Long>, QuerydslPredicateExecutor<Board> {
+public interface BoardRepository extends CrudRepository<Board, Long> {
     // 글 제목 검색하기
     List<Board> findByTitle(String searchKeyword);
     // 글 제목 LIKE 검색하기
