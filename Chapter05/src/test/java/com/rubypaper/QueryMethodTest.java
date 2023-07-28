@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Date;
 import java.util.List;
@@ -61,6 +63,16 @@ public class QueryMethodTest {
     @Test
     public void testFindByTitleContainingOrderBySeqDesc(){
         List<Board> boardList = boardRepo.findByTitleContainingOrderBySeqDesc("17");
+        System.out.println("검색 결과");
+        for (Board board : boardList) {
+            System.out.println("---> " + board.toString());
+        }
+    }
+
+    @Test
+    public void testFindByTitleContaining(){
+        Pageable paging = PageRequest.of(0,5);
+        List<Board> boardList = boardRepo.findByTitleContaining("제목", paging);
         System.out.println("검색 결과");
         for (Board board : boardList) {
             System.out.println("---> " + board.toString());
