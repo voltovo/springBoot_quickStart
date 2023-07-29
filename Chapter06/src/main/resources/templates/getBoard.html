@@ -22,7 +22,7 @@
   </tr>
   <tr>
     <td bgcolor="orange" th:text="등록일"></td>
-    <td th:text="${board.createDate}"></td>
+    <td th:text="${#dates.format(board.createDate, 'yyyy-MM-dd')}"></td>
   </tr>
   <tr>
     <td bgcolor="orange" th:text="조회수"></td>
