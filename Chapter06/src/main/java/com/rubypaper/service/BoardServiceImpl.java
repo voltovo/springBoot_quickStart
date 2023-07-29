@@ -21,7 +21,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     public Board getBoard(Board board){
-        return null;
+        return boardRepo.findById(board.getSeq()).get();
     }
 
     public void updateBoard(Board board){
