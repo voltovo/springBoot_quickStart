@@ -6,6 +6,7 @@ import org.apache.logging.log4j.message.ReusableMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -22,5 +23,10 @@ public class BoardController {
 
         model.addAttribute("boardList", boardList);
         return "getBoardList";
+    }
+
+    @GetMapping("/insertBoard")
+    public String insertBoardView(){
+        return "insertBoard";
     }
 }
