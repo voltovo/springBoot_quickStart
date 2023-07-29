@@ -14,8 +14,8 @@
         <th bgcolor="orange" width="100">조회수</th>
     </tr>
 
-    <tr th:each="board : ${boardList}">
-        <td th:text="${board.seq}">
+    <tr th:each="board, state : ${boardList}">
+        <td th:text="${state.count}">
         <td><a th:href="@{/getBoard(seq=${board.seq})}" th:text="${board.title}"></a></td>
         <td th:text="${board.writer}">
         <td th:text="${board.createDate}">
