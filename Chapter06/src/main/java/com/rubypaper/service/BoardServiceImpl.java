@@ -17,7 +17,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     public void insertBoard(Board board){
-
+        boardRepo.save(board);
     }
 
     public Board getBoard(Board board){

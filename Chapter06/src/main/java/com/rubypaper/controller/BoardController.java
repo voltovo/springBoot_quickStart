@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -28,5 +29,11 @@ public class BoardController {
     @GetMapping("/insertBoard")
     public String insertBoardView(){
         return "insertBoard";
+    }
+
+    @PostMapping("/insertBoard")
+    public String insertBoard(Board board){
+        boardService.insertBoard(board);
+        return "redirect:getBoardList";
     }
 }
