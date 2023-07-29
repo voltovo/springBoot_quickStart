@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import com.rubypaper.domain.Member;
+import org.springframework.web.bind.support.SessionStatus;
 
 @SessionAttributes("member")
 @Controller
@@ -29,5 +30,11 @@ public class LoginController {
         }else{
             return "redirect:login";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(SessionStatus status){
+        status.setComplete();
+        return "redirect:index.html";
     }
 }
