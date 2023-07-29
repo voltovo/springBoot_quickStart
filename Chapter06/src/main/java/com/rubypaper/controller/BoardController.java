@@ -42,4 +42,10 @@ public class BoardController {
         model.addAttribute("board", boardService.getBoard(board));
         return "getBoard";
     }
+
+    @PostMapping("/updateBoard")
+    public String updateBoard(Board board){
+        boardService.updateBoard(board);
+        return "forward:getBoardList";
+    }
 }
