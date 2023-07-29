@@ -16,13 +16,13 @@
 
     <tr th:each="board : ${boardList}">
         <td th:text="${board.seq}">
-        <td th:text="${board.title}">
+        <td><a th:href="@{/getBoard(seq=${board.seq})}" th:text="${board.title}"></a></td>
         <td th:text="${board.writer}">
         <td th:text="${board.createDate}">
         <td th:text="${board.cnt}">
     </tr>
 </table>
 <br>
-<a th:href="insertBoard">새글 등록</a>
+<a th:href="@{/insertBoard}">새글 등록</a>
 </body>
 </html>
