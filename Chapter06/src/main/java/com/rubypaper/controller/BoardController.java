@@ -48,4 +48,10 @@ public class BoardController {
         boardService.updateBoard(board);
         return "forward:getBoardList";
     }
+
+    @GetMapping("/deleteBoard")
+    public String deleteBoard(Board board){
+        boardService.deleteBoard(board);
+        return "forward:getBoardList";
+    }
 }
