@@ -1,0 +1,2 @@
+package com.rubypaper.config;public class BoardUserDetailsService {
+}
