@@ -14,16 +14,19 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
 
     @Autowired
-    public void authenticate(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication()
-                .withUser("manager")
-                .password("{noop}manager123")
-                .roles("MANAGER");
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("{noop}admin123")
-                .roles("ADMIN");
-    }
+    private BoardUserDetailsService boardUserDetailsService;
+
+//    @Autowired
+//    public void authenticate(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.inMemoryAuthentication()
+//                .withUser("manager")
+//                .password("{noop}manager123")
+//                .roles("MANAGER");
+//        auth.inMemoryAuthentication()
+//                .withUser("admin")
+//                .password("{noop}admin123")
+//                .roles("ADMIN");
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -48,6 +51,8 @@ public class SecurityConfig {
         http.logout(logout -> logout
                 .invalidateHttpSession(true)
                 .logoutSuccessUrl("/login"));
+        // jpa 사용자 정의
+        http.userDetailsService(boardUserDetailsService);
         return http.build();
     }
 }
