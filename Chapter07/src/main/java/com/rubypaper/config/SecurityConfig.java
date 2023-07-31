@@ -16,10 +16,15 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/"),
+                                new AntPathRequestMatcher("/login"),
+                                new AntPathRequestMatcher("/loginSuccess")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/member/**")).authenticated()
                         .requestMatchers(new AntPathRequestMatcher("/manager/**")).hasRole("MANAGER")
                         .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN"));
+        http.formLogin(formLogin -> formLogin
+                .loginPage("/login")
+                .defaultSuccessUrl("/loginSuccess", true));
         return http.build();
     }
 }
