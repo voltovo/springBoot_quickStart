@@ -32,13 +32,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(new AntPathRequestMatcher("/"),
                                 new AntPathRequestMatcher("/login"),
-                                new AntPathRequestMatcher("/loginSuccess")).permitAll()
+                                new AntPathRequestMatcher("/loginSuccess"),
+                                new AntPathRequestMatcher("/accessDenied")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/member/**")).authenticated()
                         .requestMatchers(new AntPathRequestMatcher("/manager/**")).hasRole("MANAGER")
                         .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN"));
+        // 로그인 페이지로 이동
         http.formLogin(formLogin -> formLogin
                 .loginPage("/login")
                 .defaultSuccessUrl("/loginSuccess", true));
+        // 권한 없는 페이지 접근
+        http.exceptionHandling(exceptionHandling -> exceptionHandling
+                .accessDeniedPage("/accessDenied"));
         return http.build();
     }
 }
