@@ -44,6 +44,10 @@ public class SecurityConfig {
         // 권한 없는 페이지 접근
         http.exceptionHandling(exceptionHandling -> exceptionHandling
                 .accessDeniedPage("/accessDenied"));
+        //로그 아웃
+        http.logout(logout -> logout
+                .invalidateHttpSession(true)
+                .logoutSuccessUrl("/login"));
         return http.build();
     }
 }
