@@ -1,4 +1,4 @@
-package com.rubypaper.domain;
+package com.rubypaper.board.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
