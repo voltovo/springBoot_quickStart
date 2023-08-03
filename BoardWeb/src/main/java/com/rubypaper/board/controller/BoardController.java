@@ -20,9 +20,10 @@ public class BoardController {
     private BoardService boardService;
 
     @RequestMapping("/getBoardList")
-    public String getBoardList(Board board, Model model) {
+    public String getBoardList(Board board, Model model, @AuthenticationPrincipal SecurityUser principal) {
         Page<Board> boardList = boardService.getBoardList(board);
         model.addAttribute("boardList", boardList);
+        model.addAttribute("member", principal.getMember());
         return "board/getBoardList";
     }
 
@@ -33,7 +34,8 @@ public class BoardController {
     }
 
     @GetMapping ("/insertBoard")
-    public String insertBoardView(){
+    public String insertBoardView(@AuthenticationPrincipal SecurityUser principal, Model model){
+        model.addAttribute("member", principal.getMember());
         return "board/insertBoard";
     }
 
