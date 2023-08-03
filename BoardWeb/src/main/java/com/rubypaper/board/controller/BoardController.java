@@ -1,9 +1,11 @@
 package com.rubypaper.board.controller;
 
 import com.rubypaper.board.domain.Board;
+import com.rubypaper.board.security.SecurityUser;
 import com.rubypaper.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +38,8 @@ public class BoardController {
     }
 
     @PostMapping("/insertBoard")
-    public String insertBoard(Board board){
+    public String insertBoard(Board board, @AuthenticationPrincipal SecurityUser principal){
+        board.setMember(principal.getMember());
         boardService.insertBoard(board);
         return "redirect:getBoardList";
     }
