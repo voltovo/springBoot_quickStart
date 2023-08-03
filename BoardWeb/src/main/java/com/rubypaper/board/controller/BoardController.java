@@ -1,6 +1,7 @@
 package com.rubypaper.board.controller;
 
 import com.rubypaper.board.domain.Board;
+import com.rubypaper.board.domain.Search;
 import com.rubypaper.board.security.SecurityUser;
 import com.rubypaper.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,14 @@ public class BoardController {
     private BoardService boardService;
 
     @RequestMapping("/getBoardList")
-    public String getBoardList(Board board, Model model, @AuthenticationPrincipal SecurityUser principal) {
-        Page<Board> boardList = boardService.getBoardList(board);
+    public String getBoardList( Model model, @AuthenticationPrincipal SecurityUser principal, Search search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition("TITLE");
+        }
+        if(search.getSearchKeyword() == null){
+            search.setSearchKeyword("");
+        }
+        Page<Board> boardList = boardService.getBoardList(search);
         model.addAttribute("boardList", boardList);
         model.addAttribute("member", principal.getMember());
         return "board/getBoardList";
