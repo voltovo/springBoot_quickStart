@@ -5,3 +5,18 @@ spring:
     username: suman
     password: suman1234
     driver-class-name: com.mysql.cj.jdbc.Driver
+# Thymeleaf Setting
+  thymeleaf:
+    cache: false
+
+# JPA Setting
+  jpa:
+    hibernate:
+      ddl-auto: update
+    gererate-ddl: false
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+    database: mysql
