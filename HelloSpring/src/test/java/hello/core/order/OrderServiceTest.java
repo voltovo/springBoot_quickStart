@@ -29,9 +29,9 @@ class OrderServiceTest {
         Member suman = new Member(memberId, "suman", Grade.VIP);
         memberService.join(suman);
         //when
-        Order itemA = orderService.createOrder(memberId, "itemA", 10000);
+        Order itemA = orderService.createOrder(memberId, "itemA", 20000);
         //then
-        assertEquals(itemA.getDiscountPrice(), 1000);
-        assertEquals(itemA.calculatePrice(), 9000);
+        assertEquals(itemA.getDiscountPrice(), 2000);
+        assertEquals(itemA.calculatePrice(), 18000);
     }
 }
