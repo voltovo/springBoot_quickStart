@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6443055-2bc3-4009-9dbf-b18689df5a37" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/springmvc/basic/HelloData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/springmvc/basic/request/RequestBodyJsonController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,7 +91,7 @@
       <option name="presentableId" value="Default" />
       <updated>1698750591533</updated>
       <workItem from="1698750592899" duration="811000" />
-      <workItem from="1698836662446" duration="5088000" />
+      <workItem from="1698836662446" duration="6092000" />
     </task>
     <servers />
   </component>
