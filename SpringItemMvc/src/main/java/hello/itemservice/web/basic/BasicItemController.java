@@ -25,6 +25,7 @@ public class BasicItemController {
     public String items(Model model) {
         List<Item> itemList = itemRepository.findAll();
         model.addAttribute("items", itemList);
+
         return "basic/items";
     }
 
@@ -32,6 +33,7 @@ public class BasicItemController {
     public String item(@PathVariable Long itemId, Model model) {
         Item findItem = itemRepository.findById(itemId);
         model.addAttribute("item", findItem);
+
         return "basic/item";
     }
 
@@ -44,7 +46,23 @@ public class BasicItemController {
     public String save(@ModelAttribute("item") Item item, Model model) {
         itemRepository.save(item);
         model.addAttribute("item", item);
-        return "basic/item";
+
+        return "redirect:/basic/items/" + item.getId();
+    }
+
+    @GetMapping("/{itemId}/edit")
+    public String editForm(@PathVariable Long itemId, Model model) {
+        Item findItem = itemRepository.findById(itemId);
+        model.addAttribute("item", findItem);
+
+        return "basic/editForm";
+    }
+
+    @PostMapping("/{itemId}/edit")
+    public String update(@PathVariable Long itemId, @ModelAttribute("item") Item updateItem) {
+        itemRepository.update(itemId, updateItem);
+
+        return "redirect:/basic/items/{itemId}";
     }
 
     @PostConstruct
