@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/basic/items")
@@ -43,11 +44,14 @@ public class BasicItemController {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute("item") Item item, Model model) {
-        itemRepository.save(item);
-        model.addAttribute("item", item);
+    public String save(@ModelAttribute("item") Item item, RedirectAttributes redirectAttributes) {
+        Item saveItem = itemRepository.save(item);
+        // 동적으로 변하는 itemId를 인코딩해서 url을 작성
+        redirectAttributes.addAttribute("itemId", saveItem.getId());
+        // ?status=true
+        redirectAttributes.addAttribute("status", true);
 
-        return "redirect:/basic/items/" + item.getId();
+        return "redirect:/basic/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
