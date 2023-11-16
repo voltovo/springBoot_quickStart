@@ -34,4 +34,20 @@ public class Order {
     private LocalDateTime orderDate; //주문 시간
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // 주문상태 [order, cancel]
+
+    // 연관관계 메서드
+    public void setMember(Member member) {
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
 }
