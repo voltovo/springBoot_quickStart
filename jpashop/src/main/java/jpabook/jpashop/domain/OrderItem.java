@@ -26,4 +26,20 @@ public class OrderItem {
     private Order order;
     private int orderPrice; //주문 가격
     private int count; //주문 수량
+
+    /**
+     * 주문 상품 수량 원상복구
+     */
+    public void cancel() {
+        // 취소시 주문 수량 원상복구
+        getItem().addStock(count);
+    }
+
+    /**
+     * 주문 상품 전체 가격 조회
+     * @return
+     */
+    public int getTotalPrice() {
+        return getOrderPrice() * getCount();
+    }
 }
