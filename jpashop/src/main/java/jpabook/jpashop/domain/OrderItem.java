@@ -28,6 +28,23 @@ public class OrderItem {
     private int count; //주문 수량
 
     /**
+     * 주문 상품 생성 메소드
+     * @param item
+     * @param orderPrice
+     * @param count
+     * @return
+     */
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+
+        item.removeStock(count);
+        return orderItem;
+    }
+
+    /**
      * 주문 상품 수량 원상복구
      */
     public void cancel() {
