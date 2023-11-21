@@ -48,4 +48,17 @@ public class OrderService {
 
         return order.getId();
     }
+
+    /**
+     * 주문 취소
+     * @param orderId
+     */
+    @Transactional
+    public void orderCancel(Long orderId) {
+        //주문 엔티티 조회
+        Order order = orderRepository.findOne(orderId);
+
+        //주문 취소
+        order.cancel();
+    }
 }
