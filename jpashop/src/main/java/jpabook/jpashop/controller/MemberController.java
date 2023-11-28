@@ -40,7 +40,8 @@ public class MemberController {
             return "members/createMemberForm";
         }
         // 주소
-        Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
+        //Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
+        Address address = form.createAddress();
         // 회원
         Member member = new Member();
         member.setName(form.getName());

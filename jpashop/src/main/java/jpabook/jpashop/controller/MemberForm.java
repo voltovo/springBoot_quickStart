@@ -1,6 +1,7 @@
 package jpabook.jpashop.controller;
 
 import javax.validation.constraints.NotEmpty;
+import jpabook.jpashop.domain.Address;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,4 +13,8 @@ public class MemberForm {
     private String street;
     private String city;
     private String zipcode;
+
+    public Address createAddress() {
+        return new Address(this.city, this.street, this.zipcode);
+    }
 }
