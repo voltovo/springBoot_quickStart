@@ -51,4 +51,15 @@ public class MemberController {
 
         return "redirect:/";
     }
+
+    /**
+     * 회원 목록
+     * @param model
+     * @return
+     */
+    @GetMapping("/members")
+    public String list(Model model) {
+        model.addAttribute("members", memberService.findMembers());
+        return "members/memberList";
+    }
 }
