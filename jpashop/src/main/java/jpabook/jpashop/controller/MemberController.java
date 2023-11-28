@@ -7,6 +7,7 @@ import jpabook.jpashop.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -33,7 +34,11 @@ public class MemberController {
      * @return
      */
     @PostMapping("/members/new")
-    public String create(@Valid MemberForm form) {
+    public String create(@Valid MemberForm form, BindingResult result) {
+        // 이름이 누락된 경우
+        if (result.hasErrors()) {
+            return "members/createMemberForm";
+        }
         // 주소
         Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
         // 회원
