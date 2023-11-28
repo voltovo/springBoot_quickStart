@@ -35,4 +35,10 @@ public class ItemController {
         itemService.save(form.createBook());
         return "redirect:/";
     }
+
+    @GetMapping("/items")
+    public String list(Model model) {
+        model.addAttribute("items", itemService.findAll());
+        return "items/itemList";
+    }
 }
