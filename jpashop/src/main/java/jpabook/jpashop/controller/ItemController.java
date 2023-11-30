@@ -63,18 +63,8 @@ public class ItemController {
     }
 
     @PostMapping("/items/{itemId}/edit")
-    public String updateItem(@ModelAttribute("form") BookForm form) {
-
-        Book book = new Book();
-        // 로그인한 유저가 해당 item을 수정할 권한이 있는지 체크가 필요하다
-        book.setId(form.getId());
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
-
-        itemService.save(book);
+    public String updateItem(@PathVariable("itemId") Long itemId, @ModelAttribute("form") BookForm form) {
+        itemService.updateItem(itemId, form);
 
         return "redirect:/items";
     }
