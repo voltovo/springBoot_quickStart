@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import org.jboss.logging.MessageLogger;
 
 @Entity
-public class Member {
+public class Member extends BaseEntity{
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "MEMBER_ID")
     private Long id;
