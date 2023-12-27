@@ -51,4 +51,17 @@ public class MemberService {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }
+
+    /**
+     * 회원 정보 수정
+     * command와 query를 분리하기 위해서
+     * return에 findMember 하지 않고 마무리
+     * @param id
+     * @param name
+     */
+    @Transactional
+    public void update(Long id, String name) {
+        Member findMember = memberRepository.findOne(id);
+        findMember.setName(name);
+    }
 }
