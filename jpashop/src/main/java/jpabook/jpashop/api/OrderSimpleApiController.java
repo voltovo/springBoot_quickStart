@@ -1,9 +1,15 @@
 package jpabook.jpashop.api;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
+import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderSearch;
+import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.repository.OrderRepository;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,5 +37,37 @@ public class OrderSimpleApiController {
             order.getDelivery().getStatus();// 배송 엔티티 Lazy 로딩을 강제 초기화
         }
         return all;
+    }
+
+    @GetMapping("/api/v2/simple-orders")
+    public Result ordersV2(){
+        List<SimpleOrderDto> result = orderRepository.findAll(new OrderSearch()).stream().map(o -> new SimpleOrderDto(o))
+            .collect(Collectors.toList());
+        return new Result(result.size(), result);
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private Integer memberCount;
+        private T data;
+    }
+
+    @Data
+    static class SimpleOrderDto {
+
+        private Long orderId;
+        private String name;
+        private LocalDateTime orderDate;
+        private OrderStatus orderStatus;
+        private Address address;
+
+        public SimpleOrderDto(Order order) {
+            orderId = order.getId();
+            name = order.getMember().getName();
+            orderDate = order.getOrderDate();
+            orderStatus = order.getStatus();
+            address = order.getDelivery().getAddress();
+        }
     }
 }
