@@ -66,7 +66,7 @@ public class OrderSimpleApiController {
     @Data
     @AllArgsConstructor
     static class Result<T> {
-        private Integer memberCount;
+        private Integer orderCount;
         private T data;
     }
 
