@@ -71,6 +71,12 @@ public class OrderApiController {
         return new Result(orders.size(), orders);
     }
 
+    @GetMapping("/api/v5/orders")
+    public Result ordersV5() {
+        List<OrderQueryDto> orders = orderQueryRepository.findAllByDto();
+        return new Result(orders.size(), orders);
+    }
+
     @Data
     @AllArgsConstructor
     static class Result<T> {
