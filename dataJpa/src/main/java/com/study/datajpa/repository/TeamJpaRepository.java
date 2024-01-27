@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TeamRepository {
+public class TeamJpaRepository {
     @PersistenceContext
     private EntityManager em;
 
