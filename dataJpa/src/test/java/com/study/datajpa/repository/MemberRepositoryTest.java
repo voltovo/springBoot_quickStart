@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.annotation.Rollback;
@@ -69,7 +70,7 @@ class MemberRepositoryTest {
         PageRequest pageRequest = PageRequest.of(0, 4, Direction.DESC, "username");
 
         //when
-        Page<Member> page = memberRepository.findByAge(age, pageRequest);
+        Slice<Member> page = memberRepository.findByAge(age, pageRequest);
 
         //then
         List<Member> content = page.getContent();
@@ -77,9 +78,9 @@ class MemberRepositoryTest {
         // 현재 페이지의 데이터 수
         assertThat(content.size()).isEqualTo(4);
         // 전체 데이터 수
-        assertThat(page.getTotalElements()).isEqualTo(6);
+//        assertThat(page.getTotalElements()).isEqualTo(6);
         // 전체 페이지 수
-        assertThat(page.getTotalPages()).isEqualTo(2);
+//        assertThat(page.getTotalPages()).isEqualTo(2);
         // 현재 페이지가 첫번째 인지 확인
         assertThat(page.isFirst()).isTrue();
         // 다음 페이지가 있는지 확인
