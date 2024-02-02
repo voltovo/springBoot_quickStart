@@ -8,6 +8,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,4 +54,37 @@ class MemberRepositoryTest {
         count = memberRepository.count();
         assertThat(count).isEqualTo(0);
     }
+    
+    @Test
+    public void pagingTest() throws Exception{
+        //given
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 10));
+        memberRepository.save(new Member("member3", 10));
+        memberRepository.save(new Member("member4", 10));
+        memberRepository.save(new Member("member5", 10));
+        memberRepository.save(new Member("member6", 10));
+
+        int age = 10;
+        PageRequest pageRequest = PageRequest.of(0, 4, Direction.DESC, "username");
+
+        //when
+        Page<Member> page = memberRepository.findByAge(age, pageRequest);
+
+        //then
+        List<Member> content = page.getContent();
+
+        // 현재 페이지의 데이터 수
+        assertThat(content.size()).isEqualTo(4);
+        // 전체 데이터 수
+        assertThat(page.getTotalElements()).isEqualTo(6);
+        // 전체 페이지 수
+        assertThat(page.getTotalPages()).isEqualTo(2);
+        // 현재 페이지가 첫번째 인지 확인
+        assertThat(page.isFirst()).isTrue();
+        // 다음 페이지가 있는지 확인
+        assertThat(page.hasNext()).isTrue();
+
+     
+     }
 }
