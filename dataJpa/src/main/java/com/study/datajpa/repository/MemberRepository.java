@@ -2,6 +2,7 @@ package com.study.datajpa.repository;
 
 import com.study.datajpa.entity.Member;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
@@ -19,4 +20,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Modifying
     @Query("update Member m set m.age = m.age+1 where m.age >= :age")
     int bulkAgePlus(@Param("age") int age);
+
+    @Query("select m from Member m where m.username = :username")
+    Optional<Member> findByUsername(@Param("username") String username);
 }

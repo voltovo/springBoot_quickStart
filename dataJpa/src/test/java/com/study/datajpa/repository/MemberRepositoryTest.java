@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.study.datajpa.entity.Member;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -101,7 +102,12 @@ class MemberRepositoryTest {
         //when
         int resultCount = memberRepository.bulkAgePlus(20);
 
+        // 벌크 쿼리의 문제점 영속성 컨텍스트와 DB의 데이터가 다르다
+        Member findMember = memberRepository.findByUsername("member5").get();
+        System.out.println("findMember = " + findMember);
         //then
         assertThat(resultCount).isEqualTo(3);
+        // DB의 데이터는 41, 영속성 컨텍스트의 데이터는 40
+        assertThat(findMember.getAge()).isEqualTo(40);
     }
 }
