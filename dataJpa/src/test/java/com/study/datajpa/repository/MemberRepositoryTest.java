@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.study.datajpa.entity.Member;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -23,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 class MemberRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;
+    @PersistenceContext
+    EntityManager em;
 
     @Test
     public void basicCRUD() throws Exception {
@@ -102,12 +106,18 @@ class MemberRepositoryTest {
         //when
         int resultCount = memberRepository.bulkAgePlus(20);
 
-        // 벌크 쿼리의 문제점 영속성 컨텍스트와 DB의 데이터가 다르다
+        // 영속성 컨텍스트 초기화
+        // 벌크성 쿼리를 사용하면 꼭 초기화를 해야 한다
+        em.flush();
+        em.clear();
+
+        // 벌크 쿼리의 문제점 처리
+        // 영속성 컨텍스트를 초기화 하고 난 후 조회
         Member findMember = memberRepository.findByUsername("member5").get();
         System.out.println("findMember = " + findMember);
         //then
         assertThat(resultCount).isEqualTo(3);
         // DB의 데이터는 41, 영속성 컨텍스트의 데이터는 40
-        assertThat(findMember.getAge()).isEqualTo(40);
+        assertThat(findMember.getAge()).isEqualTo(41);
     }
 }
