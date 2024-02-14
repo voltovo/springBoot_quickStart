@@ -104,12 +104,14 @@ class MemberRepositoryTest {
         memberRepository.save(new Member("member5", 40));
         memberRepository.save(new Member("member6", 9));
         //when
+        // bulkAgePlus query 실행 후 클리어 실행
+        // clearAutomatically = true
         int resultCount = memberRepository.bulkAgePlus(20);
 
         // 영속성 컨텍스트 초기화
         // 벌크성 쿼리를 사용하면 꼭 초기화를 해야 한다
-        em.flush();
-        em.clear();
+//        em.flush();
+//        em.clear();행
 
         // 벌크 쿼리의 문제점 처리
         // 영속성 컨텍스트를 초기화 하고 난 후 조회

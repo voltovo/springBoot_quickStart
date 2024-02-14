@@ -17,7 +17,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
         countQuery = "select count(m) from Member m")
     Page<Member> findByAge(int age, PageRequest pageRequest);
 
-    @Modifying
+    // 벌크성 쿼리 후 영속성 컨텍스트 초기화 수행
+    @Modifying(clearAutomatically = true)
     @Query("update Member m set m.age = m.age+1 where m.age >= :age")
     int bulkAgePlus(@Param("age") int age);
 
