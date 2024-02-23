@@ -1,8 +1,5 @@
 package study.querydsl.entity;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.util.List;
