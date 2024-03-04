@@ -94,4 +94,17 @@ public class QuertdslBasicTest {
          //then
 
         }
+
+    @Test
+    public void findDtoByField() throws Exception {
+        //given
+        List<MemberDto> result = queryFactory.select(
+            Projections.fields(MemberDto.class, member.username, member.age)).from(member).fetch();
+        //when
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+        //then
+
+    }
 }
