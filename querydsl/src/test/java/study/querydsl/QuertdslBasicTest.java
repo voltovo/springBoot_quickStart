@@ -1,13 +1,16 @@
 package study.querydsl;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static study.querydsl.entity.QMember.member;
 
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPQLTemplates;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import study.querydsl.dto.MemberDto;
@@ -18,11 +21,13 @@ import study.querydsl.entity.Team;
 @SpringBootTest
 @Transactional
 public class QuertdslBasicTest {
-    @Autowired
+    @PersistenceContext
     EntityManager em;
+    JPAQueryFactory queryFactory;
 
     @BeforeEach
     public void before(){
+        queryFactory = new JPAQueryFactory(JPQLTemplates.DEFAULT, em);
         Team teamA = new Team("teamA");
         Team teamB = new Team("teamB");
         em.persist(teamA);
@@ -54,8 +59,7 @@ public class QuertdslBasicTest {
      @Test
      public void startQuerydsl() throws Exception{
        //given
-         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-         QMember m = QMember.member;
+         QMember m = member;
          //when
          Member findMember = queryFactory.selectFrom(m).where(m.username.eq("member1")).fetchOne();
 
@@ -77,4 +81,17 @@ public class QuertdslBasicTest {
         //then
        
        }
+
+       @Test
+       public void findDtoBySetter() throws Exception{
+         //given
+           List<MemberDto> result = queryFactory.select(
+              Projections.bean(MemberDto.class, member.username, member.age)).from(member).fetch();
+           //when
+           for (MemberDto memberDto : result) {
+               System.out.println("memberDto = " + memberDto);
+           }
+         //then
+
+        }
 }
