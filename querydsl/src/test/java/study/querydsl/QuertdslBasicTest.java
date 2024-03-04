@@ -4,11 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import study.querydsl.dto.MemberDto;
 import study.querydsl.entity.Member;
 import study.querydsl.entity.QMember;
 import study.querydsl.entity.Team;
@@ -61,4 +63,18 @@ public class QuertdslBasicTest {
          assertThat(findMember.getUsername()).isEqualTo("member1");
       
       }
+      
+      @Test
+      public void findDtoByJPQL() throws Exception{
+        //given
+          List<MemberDto> result = em.createQuery(
+              "select " + "new study.querydsl.dto.MemberDto(m.username, m.age)" + " from Member m",
+              MemberDto.class).getResultList();
+          //when
+          for (MemberDto memberDto : result) {
+              System.out.println("memberDto = " + memberDto);
+          }
+        //then
+       
+       }
 }
