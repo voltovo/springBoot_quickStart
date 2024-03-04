@@ -107,4 +107,17 @@ public class QuertdslBasicTest {
         //then
 
     }
+
+    @Test
+    public void findDtoByConstructor() throws Exception {
+        //given
+        List<MemberDto> result = queryFactory.select(
+            Projections.constructor(MemberDto.class, member.username, member.age)).from(member).fetch();
+        //when
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+        //then
+
+    }
 }
