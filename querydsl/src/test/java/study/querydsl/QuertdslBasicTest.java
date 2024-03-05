@@ -5,6 +5,7 @@ import static study.querydsl.entity.QMember.member;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLTemplates;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -144,6 +145,39 @@ public class QuertdslBasicTest {
             builder.and(member.age.eq(ageCond));
         }
         return queryFactory.selectFrom(member).where(builder).fetch();
+    }
+
+    @Test
+    public void dynamicQuery_where() throws Exception{
+        //given
+        String usernameParam = "member1";
+        Integer ageParam = 10;
+        //when
+
+        List<Member> result = searchMember2(usernameParam, ageParam);
+
+        //then
+        assertThat(result.size()).isEqualTo(1);
+     }
+
+    private List<Member> searchMember2(String usernameCond, Integer ageCond) {
+        return queryFactory
+            .selectFrom(member)
+            //.where(usernameEq(usernameCond), ageEq(ageCond))
+            .where(allEq(usernameCond, ageCond))
+            .fetch();
+    }
+
+    private BooleanExpression usernameEq(String usernameCond) {
+        return usernameCond != null ? member.username.eq(usernameCond) : null;
+    }
+
+    private BooleanExpression ageEq(Integer ageCond) {
+        return ageCond != null ? member.age.eq(ageCond) : null;
+    }
+
+    private BooleanExpression allEq(String usernameCond, Integer ageCond){
+        return usernameEq(usernameCond).and(ageEq(ageCond));
     }
 }
 
