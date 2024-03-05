@@ -27,9 +27,9 @@ class MemberJpaRepositoryTest {
         //when
         Member findMember = memberJpaRepository.findById(member.getId()).get();
 
-        List<Member> findMember1 = memberJpaRepository.findAll();
+        List<Member> findMember1 = memberJpaRepository.findAll_Querydsl();
 
-        List<Member> findMember2 = memberJpaRepository.findByUsername("member1");
+        List<Member> findMember2 = memberJpaRepository.findByUsername_Querydsl("member1");
         //then
         assertThat(findMember).isEqualTo(member);
         assertThat(findMember1).containsExactly(member);
