@@ -4,7 +4,6 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Order;
@@ -105,7 +104,7 @@ public class OrderApiController {
 
         private Long orderId;
         private String name;
-        private LocalDateTime orderDate;
+        private String orderDate;
         private OrderStatus orderStatus;
         private Address address;
         private List<OrderItemDto> orderItems;

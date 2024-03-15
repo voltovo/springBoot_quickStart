@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -37,7 +38,7 @@ public class Order {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
-    private LocalDateTime orderDate; //주문 시간
+    private String orderDate; //주문 시간
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // 주문상태 [order, cancel]
 
@@ -72,7 +73,7 @@ public class Order {
             order.addOrderItem(orderItem);
         }
         order.setStatus(OrderStatus.ORDER);
-        order.setOrderDate(LocalDateTime.now());
+        order.setOrderDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")));
         return order;
     }
 

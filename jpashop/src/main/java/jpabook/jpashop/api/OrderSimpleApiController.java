@@ -1,6 +1,5 @@
 package jpabook.jpashop.api;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import jpabook.jpashop.domain.Address;
@@ -68,7 +67,7 @@ public class OrderSimpleApiController {
 
         private Long orderId;
         private String name;
-        private LocalDateTime orderDate;
+        private String orderDate;
         private OrderStatus orderStatus;
         private Address address;
 
